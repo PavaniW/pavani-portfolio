@@ -17,7 +17,7 @@
 //   analytics.google.com -> Admin -> Data streams -> (your web stream) -> Measurement ID
 // It looks like  G-ABCD1234XY.  Until you do, analytics stays off (no errors).
 
-const MEASUREMENT_ID = "G-XXXXXXXXXX"; // <-- paste your real G-XXXXXXXXXX here
+const MEASUREMENT_ID = "G-49SJFWCHQW"; // Pavani Portfolio web stream
 
 (function initAnalytics() {
   // 1. Own-visit opt-out: visiting with ?mine flips this browser off for good.
