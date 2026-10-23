@@ -197,6 +197,146 @@ main { overflow-x: clip; }
   }
 }
 
+/* Bento hero */
+
+.bento {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(18px, 3.5vw, 36px) var(--gutter) clamp(40px, 7vw, 80px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(118px, 15vw, 168px);
+  gap: clamp(12px, 1.5vw, 18px);
+}
+
+.tile {
+  border-radius: 24px;
+  padding: clamp(18px, 2.2vw, 30px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.tile-name {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: var(--milk);
+  justify-content: center;
+  gap: 14px;
+}
+.tile-name .hero-name {
+  font-family: var(--display);
+  font-size: clamp(3.25rem, 7vw, 5.5rem);
+  line-height: 0.85;
+  color: var(--berry);
+  text-shadow: 0.035em 0.045em 0 var(--blush);
+}
+.tile-name .hero-line {
+  max-width: 34ch;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.45;
+  margin: 0;
+}
+.tile-handle {
+  align-self: flex-start;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--lipstick);
+}
+.tile-handle:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.tile-photo { padding: 0; background: var(--blush); }
+.tile-photo-1 { grid-column: span 1; grid-row: span 2; }
+.tile-photo-2 { grid-column: span 1; grid-row: span 1; }
+.tile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.tile-stat {
+  background: var(--berry);
+  color: var(--milk);
+  justify-content: center;
+  gap: 4px;
+}
+.tile-stat-num {
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1;
+}
+.tile-stat-label { font-size: 0.9rem; color: var(--blush); }
+
+.tile-cta {
+  background: var(--lipstick);
+  color: var(--milk);
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.tile-cta:hover { background: var(--berry); transform: translateY(-2px); }
+
+.tile-niche {
+  background: var(--butter);
+  color: var(--berry);
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 8px 10px;
+  justify-content: flex-start;
+}
+.tile-niche span {
+  font-family: var(--display);
+  font-size: clamp(0.95rem, 1.4vw, 1.3rem);
+  background: var(--milk);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.tile-social {
+  grid-column: span 2;
+  background: var(--berry-soft);
+  color: var(--milk);
+  text-decoration: none;
+  font-weight: 600;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.tile-social:hover { background: var(--berry); }
+
+/* Tile entrance on load, staggered (no scroll needed) */
+@media (prefers-reduced-motion: no-preference) {
+  .tile { animation: tile-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .tile:nth-child(1) { animation-delay: 0.04s; }
+  .tile:nth-child(2) { animation-delay: 0.10s; }
+  .tile:nth-child(3) { animation-delay: 0.16s; }
+  .tile:nth-child(4) { animation-delay: 0.22s; }
+  .tile:nth-child(5) { animation-delay: 0.28s; }
+  .tile:nth-child(6) { animation-delay: 0.34s; }
+  .tile:nth-child(7) { animation-delay: 0.40s; }
+  @keyframes tile-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@media (max-width: 820px) {
+  .bento {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;        /* content-sized: no clipping */
+  }
+  .tile { min-height: 120px; }
+  .tile-name { grid-column: 1 / -1; grid-row: auto; }
+  .tile-photo { grid-row: auto; }
+  .tile-photo-1, .tile-photo-2 { grid-column: span 1; aspect-ratio: 3 / 4; }
+  .tile-stat, .tile-cta { grid-column: span 1; }
+  .tile-niche { grid-column: 1 / -1; }
+  .tile-social { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .tile-name .hero-name { font-size: clamp(3rem, 14vw, 4rem); }
+}
+
 /* Brands */
 
 .brands {
@@ -486,22 +626,6 @@ main { overflow-x: clip; }
 .footer a:first-child { margin-left: 0; }
 
 /* ---- Motion & interactions (progressive enhancement) ---- */
-
-/* Scroll reveal — elements start hidden ONLY when JS is on (.js), so a no-JS
-   visitor still sees everything. Disabled entirely for reduced-motion users. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal,
-  .js .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .js .reveal.in,
-  .js .reveal-stagger.in > * {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 /* Nav shadow once scrolled */
 .nav.scrolled {
