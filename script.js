@@ -31,6 +31,18 @@ document.addEventListener("click", (event) => {
   if (typeof window.plausible === "function") window.plausible(name);
 });
 
+// FAQ intent tracking: when a brand expands a question, send faq_open with the
+// question text. Which questions they open is a strong signal — someone who opens
+// "How much do you charge?" is a warmer lead than someone reading "What do you make?".
+document.querySelectorAll(".faq-list details").forEach((d) => {
+  d.addEventListener("toggle", () => {
+    if (!d.open) return;                       // only count opens, not closes
+    const q = (d.querySelector("summary")?.textContent || "").trim();
+    if (typeof window.gtag === "function") window.gtag("event", "faq_open", { question: q });
+    if (typeof window.plausible === "function") window.plausible("faq_open");
+  });
+});
+
 // Open outside links in a new tab
 document.querySelectorAll('a[href^="http"]').forEach((a) => {
   a.target = "_blank";
