@@ -46,9 +46,16 @@
       </div>
     </section>
 
-    <section class="brands" aria-labelledby="brands-title">
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Beauty &#10022; Skincare &#10022; Food &#10022; Lifestyle &#10022; Colombo &#10022; Reels &#10022; TikToks &#10022; Honest reviews &#10022;&nbsp;</span>
+        <span>Beauty &#10022; Skincare &#10022; Food &#10022; Lifestyle &#10022; Colombo &#10022; Reels &#10022; TikToks &#10022; Honest reviews &#10022;&nbsp;</span>
+      </div>
+    </section>
+
+    <section class="brands reveal" aria-labelledby="brands-title">
       <h2 id="brands-title" class="brands-title">Brands I've worked with</h2>
-      <ul class="brand-list">
+      <ul class="brand-list reveal-stagger">
         <li><a href="https://www.cliaraessentialoils.com/" data-track="brand-cliara">Cliárá</a><span>Natural skincare</span></li>
         <li><a href="https://www.blushme.lk/" data-track="brand-blushme">Blush Me</a><span>Beauty store</span></li>
         <li><a href="https://perfumeclub.lk/" data-track="brand-perfumeclub">PerfumeClub</a><span>Fragrance</span></li>
@@ -57,11 +64,11 @@
     </section>
 
     <section id="work" class="work" aria-labelledby="work-title">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2 id="work-title">My work</h2>
         <p>Tap any post to watch it on Instagram.</p>
       </div>
-      <ul class="reels">
+      <ul class="reels reveal-stagger">
         <!-- Brand tags on the first four are best guesses from the posts. Confirm before publishing. -->
         <li><a class="reel" href="https://www.instagram.com/pavaniii.w/reel/DV2uKFjiJ8B/" data-track="work-cliara">
           <img src="assets/work/clay-mask.jpg" alt="Pavani wearing a green tea clay mask, holding the jar" loading="lazy">
@@ -102,14 +109,14 @@
       </ul>
     </section>
 
-    <section id="about" class="about" aria-labelledby="about-title">
+    <section id="about" class="about reveal" aria-labelledby="about-title">
       <img class="about-photo" src="assets/work/train.jpg" alt="Pavani smiling by a train window">
       <div class="about-text">
         <h2 id="about-title">Hi, I'm Pavani</h2>
         <p>I'm a software engineer in Colombo. Outside of work, I'm testing skincare, doing my makeup, finding somewhere good to eat and getting dressed up for it, and then telling you what I honestly think.</p>
         <p>I show products the way I actually use them: at home, in real light, with no filter on my opinion.</p>
         <dl class="stats">
-          <div><dt>Instagram followers</dt><dd>4.4k</dd></div>
+          <div><dt>Instagram followers</dt><dd class="count" data-to="4.4" data-suffix="k">4.4k</dd></div>
           <!-- TODO: add TikTok followers and best views -->
           <div><dt>TikTok</dt><dd><a href="https://www.tiktok.com/@pavaniii.w" data-track="about-tiktok">@pavaniii.w</a></dd></div>
         </dl>
@@ -125,7 +132,7 @@
       </div>
     </section>
 
-    <section id="faq" class="faq" aria-labelledby="faq-title">
+    <section id="faq" class="faq reveal" aria-labelledby="faq-title">
       <h2 id="faq-title">Questions brands ask</h2>
       <!-- Answers marked "confirm" are my best guess. Edit them to match how you work. -->
       <div class="faq-list">
@@ -164,7 +171,7 @@
       </div>
     </section>
 
-    <section id="contact" class="contact" aria-labelledby="contact-title">
+    <section id="contact" class="contact reveal" aria-labelledby="contact-title">
       <h2 id="contact-title">Let's make something</h2>
       <p>Tell me about your brand and what you have in mind. I read every email.</p>
       <a class="contact-email" href="mailto:pavanishadi25@gmail.com?subject=Collab%20with%20Pavani" data-track="contact-email">pavanishadi25@gmail.com</a>
@@ -187,5 +194,6 @@
 
   <script src="analytics.js"></script>
   <script src="script.js"></script>
+  <script src="interactions.js"></script>
 </body>
 </html>
