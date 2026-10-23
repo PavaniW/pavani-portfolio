@@ -1,7 +1,9 @@
-// Small, robust progressive enhancements. No content is ever hidden by these —
-// everything on the page is visible without JS; this only adds polish.
+// Progressive-enhancement interactions. The page is fully readable without JS;
+// this adds polish and includes a safety net so content is never left hidden.
 (function () {
-  document.documentElement.classList.add("js");
+  const root = document.documentElement;
+  root.classList.add("js");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Nav gains a subtle shadow once you scroll past the top.
   const nav = document.querySelector(".nav");
@@ -9,9 +11,40 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Content-reveal on scroll. Sections fade/slide in as they enter view; grids stagger.
+  const revealEls = document.querySelectorAll(".reveal, .reveal-stagger");
+  const show = (el) => {
+    if (el.classList.contains("reveal-stagger")) {
+      Array.from(el.children).forEach((c, i) => { c.style.transitionDelay = (i * 60) + "ms"; });
+    }
+    el.classList.add("in");
+  };
 
-  // Count-up for stat numbers when they scroll into view (value stays correct if JS is off).
+  if (reduce || !("IntersectionObserver" in window)) {
+    revealEls.forEach(show); // no motion wanted/possible → just show everything
+  } else {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        show(e.target);
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
+    revealEls.forEach((el) => io.observe(el));
+
+    // Safety net: anything already on-screen at load reveals right away, and after
+    // load we force-reveal anything in view — so a section can never be stuck blank.
+    const sweep = () => revealEls.forEach((el) => {
+      if (el.classList.contains("in")) return;
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.95) show(el);
+    });
+    sweep();
+    window.addEventListener("load", () => setTimeout(sweep, 50));
+  }
+
+  if (reduce) return;
+
+  // Count-up for stat numbers when they scroll into view.
   const cio = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
