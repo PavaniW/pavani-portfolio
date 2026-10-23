@@ -16,13 +16,18 @@ copyButton?.addEventListener("click", async () => {
   }, 2500);
 });
 
-// Click tracking: sends a custom event for any link with data-track,
-// if an analytics tool that supports custom events is installed.
+// Click tracking: for any link with data-track, send a DISTINCT, readable GA4 event
+// per link (e.g. data-track="brand-cliara" -> event "link_brand_cliara"). Using a
+// unique event name (not a shared "click" with a hidden param) means each link shows
+// up separately in GA4's "Event count by Event name" — and avoids colliding with
+// GA4 Enhanced Measurement's own auto "click" event. We also pass link_name as a
+// parameter so the raw value is available in DebugView / BigQuery exports.
 document.addEventListener("click", (event) => {
   const link = event.target.closest("[data-track]");
   if (!link) return;
-  const name = link.dataset.track;
-  if (typeof window.gtag === "function") window.gtag("event", "click", { label: name });
+  const name = link.dataset.track;                 // e.g. "brand-cliara"
+  const eventName = "link_" + name.replace(/-/g, "_"); // -> "link_brand_cliara"
+  if (typeof window.gtag === "function") window.gtag("event", eventName, { link_name: name });
   if (typeof window.plausible === "function") window.plausible(name);
 });
 
