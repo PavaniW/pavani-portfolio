@@ -381,7 +381,7 @@ main { overflow-x: clip; }
   .hf-hey { font-size: 15vw; translate: -30% -38%; }
   .hf-creates { font-size: 17vw; translate: 34% 66%; }
   .hf-badge { width: 92px; right: 0; top: 0; }
-  .hf-stage { padding-bottom: 12px; }
+  .hf-stage { padding-bottom: 72px; }
   .hf-note { position: relative; left: auto; top: auto; margin: 64px auto 8px; max-width: 250px; grid-area: 2 / 1; }
 }
 
