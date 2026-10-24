@@ -39,7 +39,7 @@
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234a0e2b'/><g fill='%23f9dde3'><circle cx='50' cy='33' r='14'/><circle cx='66' cy='45' r='14'/><circle cx='60' cy='64' r='14'/><circle cx='40' cy='64' r='14'/><circle cx='34' cy='45' r='14'/></g><circle cx='50' cy='52' r='12' fill='%23c8163b'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@500;700&family=Instrument+Sans:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -57,26 +57,40 @@
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="hero-text">
-        <h1 class="hero-name"><span class="visually-hidden">Pavani Wickramathilake, </span>@pavaniii.w</h1>
-        <p class="hero-line">Beauty, skincare, food and lifestyle in Colombo. I&nbsp;make content that feels like a recommendation from a friend, because it is one.</p>
-        <div class="hero-actions">
-          <a class="btn" href="#work" data-track="hero-see-work">See my work</a>
-          <div class="hero-socials">
-            <a href="https://www.instagram.com/pavaniii.w/" data-track="hero-instagram" aria-label="My Instagram" title="Instagram">
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://www.tiktok.com/@pavaniii.w" data-track="hero-tiktok" aria-label="My TikTok" title="TikTok">
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.4 6.4 0 1 0 5.4 6.3V8.6a8.2 8.2 0 0 0 4.4 1.3V6.5a4.5 4.5 0 0 1-4.4-4.5Z"/></svg>
-            </a>
-          </div>
-        </div>
+    <section class="hero hf">
+      <div class="hf-stage">
+        <p class="hf-hey" aria-hidden="true">hey, it's</p>
+        <figure class="hf-photo">
+          <img src="assets/work/red-dinner.jpg" alt="Pavani smiling in a red dress at a dinner table with red roses">
+        </figure>
+        <h1 class="hf-name"><span class="visually-hidden">Pavani Wickramathilake, </span><span class="hf-at">@</span>pavaniii.w</h1>
+        <p class="hf-creates" aria-hidden="true">creates</p>
+
+        <!-- Text running around a circle (static) -->
+        <svg class="hf-badge" viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="hf-ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+          <circle cx="100" cy="100" r="98" class="hf-badge-bg"/>
+          <text class="hf-badge-text"><textPath href="#hf-ring" textLength="462" lengthAdjust="spacing">beauty ✿ skincare ✿ food ✿ lifestyle ✿</textPath></text>
+          <text x="100" y="114" text-anchor="middle" class="hf-badge-mark">p.w</text>
+        </svg>
+
+        <!-- Hand-written note with a hand-drawn circle -->
+        <p class="hf-note">real reviews, zero filter on my opinion ♡
+          <svg viewBox="0 0 260 110" aria-hidden="true" preserveAspectRatio="none"><path d="M18 60 C 14 20, 120 6, 200 14 C 262 20, 266 78, 196 94 C 120 110, 26 104, 12 70 C 6 52, 40 30, 78 24"/></svg>
+        </p>
       </div>
-      <div class="hero-fan" aria-hidden="true">
-        <img src="assets/work/cafe.jpg" alt="" class="fan fan-1">
-        <img src="assets/work/red-dinner.jpg" alt="" class="fan fan-2">
-        <img src="assets/work/garden.jpg" alt="" class="fan fan-3">
+
+      <p class="hero-line">Beauty, skincare, food and lifestyle in Colombo. I&nbsp;make content that feels like a recommendation from a friend, because it is one.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#work" data-track="hero-see-work">See my work</a>
+        <div class="hero-socials">
+          <a href="https://www.instagram.com/pavaniii.w/" data-track="hero-instagram" aria-label="My Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@pavaniii.w" data-track="hero-tiktok" aria-label="My TikTok" title="TikTok">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.4 6.4 0 1 0 5.4 6.3V8.6a8.2 8.2 0 0 0 4.4 1.3V6.5a4.5 4.5 0 0 1-4.4-4.5Z"/></svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -115,9 +129,14 @@
 
     <section id="work" class="work" aria-labelledby="work-title">
       <div class="section-head reveal">
+        <p class="kicker" aria-hidden="true">a little peek at</p>
         <h2 id="work-title">My Work</h2>
         <p>Tap any post to watch the full video on Instagram or TikTok.</p>
       </div>
+      <div class="work-grid-wrap">
+        <p class="doodle-note" aria-hidden="true">tap to watch!
+          <svg viewBox="0 0 90 60"><path d="M6 10 C 30 4, 62 14, 74 44 M62 34 L75 46 L82 30"/></svg>
+        </p>
       <ul class="reels reveal-stagger">
         <!-- Brand tags on the first four are best guesses from the posts. Confirm before publishing. -->
         <li><a class="reel" href="https://www.instagram.com/pavaniii.w/reel/DbkJEkgI5B8/" data-track="work-blushme">
@@ -172,11 +191,20 @@
           <span class="reel-what">Get Ready With Me</span>
         </a></li>
       </ul>
+      </div>
     </section>
 
     <section id="about" class="about reveal" aria-labelledby="about-title">
-      <img class="about-photo" src="assets/work/train.jpg" alt="Pavani smiling by a train window">
+      <div class="about-photo-wrap">
+        <img class="about-photo" src="assets/work/train.jpg" alt="Pavani smiling by a train window">
+        <!-- Text curving along the top of the arch -->
+        <svg class="about-arc" viewBox="0 0 400 220" aria-hidden="true">
+          <defs><path id="about-arc-path" d="M24,214 A176,176 0 0,1 376,214"/></defs>
+          <text><textPath href="#about-arc-path" startOffset="50%" text-anchor="middle">software engineer ✿ model in training ✿ creator</textPath></text>
+        </svg>
+      </div>
       <div class="about-text">
+        <p class="kicker" aria-hidden="true">nice to meet you</p>
         <h2 id="about-title">Hi, I'm Pavani</h2>
         <p>I'm a software engineer living in Colombo, Sri Lanka. Outside my tech work, it's all skincare, makeup and good food, and I share all of it, keeping it real every single time.</p>
         <p>I show products the way I actually use them: at home, in real light, with no filter on my opinion.</p>
@@ -203,6 +231,7 @@
 
     <section id="faq" class="faq reveal" aria-labelledby="faq-title">
       <div class="faq-side">
+        <p class="kicker" aria-hidden="true">you asked,</p>
         <h2 id="faq-title">Questions brands ask</h2>
         <p class="faq-intro">Everything you might want to know before we work together.</p>
         <a class="faq-ask" href="https://ig.me/m/pavaniii.w" data-track="faq-ask-instagram">
@@ -268,6 +297,7 @@
     <section id="contact" class="contact reveal" aria-labelledby="contact-title">
       <div class="contact-inner">
         <div class="contact-info">
+          <p class="kicker kicker-light" aria-hidden="true">ready when you are</p>
           <h2 id="contact-title">Let's create something!</h2>
           <p>Tell me about your brand and what you have in mind.<br>I read every message.</p>
           <a class="contact-email" href="mailto:pavanishadi25@gmail.com?subject=Collab%20with%20Pavani" data-track="contact-email">pavanishadi25@gmail.com</a>
