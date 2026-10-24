@@ -421,22 +421,6 @@ main { overflow-x: clip; }
   .about-photo-wrap { max-width: 340px; margin-inline: auto; }
 }
 
-/* Decorative pattern bands between sections */
-.band { height: clamp(22px, 3vw, 34px); }
-/* Gingham: two see-through plum stripe layers crossing over pink */
-.band-gingham {
-  --sq: clamp(11px, 1.5vw, 17px);
-  background-color: var(--petal);
-  background-image:
-    repeating-linear-gradient(90deg, rgb(122 58 88 / 0.38) 0 var(--sq), transparent var(--sq) calc(var(--sq) * 2)),
-    repeating-linear-gradient(0deg, rgb(122 58 88 / 0.38) 0 var(--sq), transparent var(--sq) calc(var(--sq) * 2));
-}
-/* Candy stripes: diagonal blush and plum */
-.band-stripes {
-  margin-bottom: clamp(48px, 7vw, 88px);
-  background-image: repeating-linear-gradient(-45deg, var(--blush) 0 14px, var(--berry-soft) 14px 28px);
-}
-
 /* Instagram numbers band */
 .numbers {
   max-width: var(--max);
