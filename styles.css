@@ -264,7 +264,7 @@ main { overflow-x: clip; }
   place-items: center;
   max-width: 1080px;
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 72px) 0 clamp(72px, 10vw, 128px);
+  padding: clamp(40px, 6vw, 72px) 0 clamp(96px, 13vw, 168px);
 }
 /* photo, name and scripts share one grid cell so they layer */
 .hf-stage > .hf-photo,
@@ -289,7 +289,7 @@ main { overflow-x: clip; }
   line-height: 0.9;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  translate: 0 0.78em; /* sits across the lower photo, face stays visible */
+  translate: 0 0.98em; /* sits across the bottom of the photos, faces stay visible */
   color: var(--berry);
   -webkit-text-stroke: 0.045em var(--milk);
   paint-order: stroke fill;
@@ -318,7 +318,7 @@ main { overflow-x: clip; }
 .hf-creates {
   align-self: end;
   justify-self: center;
-  translate: 52% 58%;
+  translate: 52% 80%;
   rotate: -6deg;
   font-size: clamp(3.6rem, 9vw, 8rem);
 }
@@ -351,15 +351,15 @@ main { overflow-x: clip; }
 }
 
 @media (max-width: 760px) {
-  .hf .hero-fan.hf-photo { width: 92vw; height: 330px; }
-  /* Phones: name sits mostly below the photos, just kissing their bottom edge */
-  .hf-name { translate: 0 2.15em; }
-  .hf-creates { translate: 38% 98%; }
-  .hf-stage { padding-top: 64px; padding-bottom: 84px; }
+  .hf .hero-fan.hf-photo { width: 84vw; height: 270px; }
+  /* Phones: same layering as desktop, name across the lower photos */
+  .hf-name { translate: 0 1.75em; }
+  .hf-creates { translate: 38% 120%; }
+  .hf-stage { padding-top: 76px; padding-bottom: 100px; }
   .hf-name { font-size: 15.5vw; }
-  .hf-hey { font-size: 15vw; translate: -30% -38%; }
+  .hf-hey { font-size: 14vw; translate: -32% -66%; }
   .hf-creates { font-size: 17vw; }
-  .hf-badge { width: 76px; right: -6px; top: -12px; }
+  .hf-badge { width: 70px; right: -6px; top: -4px; }
 }
 
 /* Hand-written kicker above section headings */
@@ -1106,6 +1106,11 @@ video.reel-media, .reel video {
 .faq-side .faq-ask { display: flex; width: fit-content; margin-inline: auto; }
 .faq-intro { margin-inline: auto; }
 .footer-top > * { text-align: center; }
+
+/* Tablets: smaller badge tucked into the corner so it clears the photos */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .hf-badge { width: 100px; right: -8px; top: -24px; }
+}
 
 /* Phones: the @handle fills the width so the text under it isn't squeezed,
    and the two contact buttons fit side by side */
