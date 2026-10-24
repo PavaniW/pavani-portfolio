@@ -264,7 +264,7 @@ main { overflow-x: clip; }
   place-items: center;
   max-width: 1080px;
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 72px) 0 clamp(64px, 9vw, 110px);
+  padding: clamp(40px, 6vw, 72px) 0 clamp(72px, 10vw, 128px);
 }
 /* photo, name and scripts share one grid cell so they layer */
 .hf-stage > .hf-photo,
@@ -278,7 +278,7 @@ main { overflow-x: clip; }
   height: clamp(340px, 40vw, 500px);
   z-index: 1;
 }
-.hf .fan { width: 40%; }
+.hf .fan { width: 40%; border-width: 3px; }
 
 .hf-name {
   position: relative;
@@ -352,11 +352,14 @@ main { overflow-x: clip; }
 
 @media (max-width: 760px) {
   .hf .hero-fan.hf-photo { width: 92vw; height: 330px; }
+  /* Phones: name sits mostly below the photos, just kissing their bottom edge */
+  .hf-name { translate: 0 2.15em; }
+  .hf-creates { translate: 38% 128%; }
+  .hf-stage { padding-bottom: 104px; }
   .hf-name { font-size: 15.5vw; }
   .hf-hey { font-size: 15vw; translate: -30% -38%; }
-  .hf-creates { font-size: 17vw; translate: 34% 66%; }
+  .hf-creates { font-size: 17vw; }
   .hf-badge { width: 92px; right: 0; top: 0; }
-  .hf-stage { padding-bottom: 58px; }
 }
 
 /* Hand-written kicker above section headings */
