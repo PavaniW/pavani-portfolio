@@ -58,7 +58,8 @@ document.querySelectorAll('a[href^="http"]').forEach((a) => {
   a.rel = "noopener noreferrer";
 });
 
-// Enquiry form: sends to /api/enquiry (a Vercel function that emails Pavani).
+// Enquiry form: sends straight to Web3Forms, which emails Pavani.
+const WEB3FORMS_KEY = "be06cfe0-b123-4e3b-932f-b97008893720";
 const enquiry = document.querySelector(".enquiry");
 const enquiryStatus = enquiry?.querySelector(".enquiry-status");
 
@@ -85,13 +86,38 @@ enquiry?.addEventListener("submit", async (event) => {
   enquiryStatus.textContent = "";
   enquiryStatus.classList.remove("is-error");
 
+  const fields = Object.fromEntries(new FormData(enquiry));
+
+  // Spam trap: real visitors never fill the hidden "website" field
+  if (fields.website) {
+    enquiry.reset();
+    enquiryStatus.textContent = "Thanks! Your enquiry is on its way. I'll reply by email.";
+    submit.disabled = false;
+    submit.textContent = "Send enquiry";
+    return;
+  }
+
   try {
-    const response = await fetch(enquiry.action, {
+    // Web3Forms emails each enquiry to Pavani. The access key is meant to be
+    // public: it can only deliver messages to her inbox.
+    const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(enquiry))),
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: `New enquiry: ${fields.brand} (${fields.type})`,
+        from_name: "Portfolio enquiry",
+        replyto: fields.email,
+        name: fields.name,
+        email: fields.email,
+        brand: fields.brand,
+        looking_for: fields.type,
+        timeline: fields.timeline || "Not sure yet",
+        message: fields.message,
+      }),
     });
-    if (!response.ok) throw new Error(String(response.status));
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.success === false) throw new Error(result.message || String(response.status));
     enquiry.reset();
     enquiryStatus.textContent = "Thanks! Your enquiry is on its way. I'll reply by email.";
     if (typeof window.gtag === "function") window.gtag("event", "enquiry_sent");
