@@ -354,8 +354,8 @@ main { overflow-x: clip; }
   .hf .hero-fan.hf-photo { width: 92vw; height: 330px; }
   /* Phones: name sits mostly below the photos, just kissing their bottom edge */
   .hf-name { translate: 0 2.15em; }
-  .hf-creates { translate: 38% 128%; }
-  .hf-stage { padding-top: 64px; padding-bottom: 104px; }
+  .hf-creates { translate: 38% 98%; }
+  .hf-stage { padding-top: 64px; padding-bottom: 84px; }
   .hf-name { font-size: 15.5vw; }
   .hf-hey { font-size: 15vw; translate: -30% -38%; }
   .hf-creates { font-size: 17vw; }
