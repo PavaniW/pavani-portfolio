@@ -9,7 +9,6 @@
   --display: "Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif;
   --body: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --script: "Mrs Saint Delafield", "Snell Roundhand", cursive;
-  --hand: "Caveat", "Bradley Hand", cursive;
 
   --gutter: clamp(16px, 4vw, 56px);
   --max: 1200px;
@@ -33,6 +32,9 @@ body {
 }
 
 img { display: block; max-width: 100%; }
+
+/* Form controls use the site font, not the browser default */
+button, input, select, textarea { font-family: inherit; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -330,35 +332,9 @@ main { overflow-x: clip; }
   rotate: 12deg;
 }
 .hf-badge-bg { fill: var(--milk); stroke: var(--blush); stroke-width: 3; }
-.hf-badge-text { font-family: var(--hand); font-weight: 700; font-size: 25px; fill: var(--berry); }
+.hf-badge-text { font-family: var(--body); font-weight: 600; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; fill: var(--berry); }
 .hf-badge-mark { font-family: var(--display); font-size: 40px; fill: var(--berry); }
 
-.hf-note {
-  position: absolute;
-  z-index: 3;
-  left: clamp(0px, 4vw, 70px);
-  top: 30%;
-  max-width: 200px;
-  margin: 0;
-  padding: 18px 24px;
-  font-family: var(--hand);
-  font-weight: 500;
-  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
-  line-height: 1.1;
-  color: var(--berry);
-  rotate: -6deg;
-}
-.hf-note svg {
-  position: absolute;
-  inset: -6px -14px;
-  width: calc(100% + 28px);
-  height: calc(100% + 12px);
-  fill: none;
-  stroke: var(--berry-soft);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  overflow: visible;
-}
 
 .hf .hero-line { max-width: 44ch; margin: 0 auto 28px; }
 
@@ -368,23 +344,15 @@ main { overflow-x: clip; }
   .hf-hey { animation: hf-write 1.1s ease-out 0.9s both; }
   .hf-creates { animation: hf-write 1.3s ease-out 1.25s both; }
   .hf-badge { animation: hf-spin-in 0.9s ease-out 1.6s both; }
-  .hf-note { animation: hf-fade 0.6s ease-out 1.9s both; }
-  @keyframes hf-pop { from { opacity: 0; scale: 0.85; } to { opacity: 1; scale: 1; } }
-  @keyframes hf-write { from { clip-path: inset(-20% 100% -20% 0); } to { clip-path: inset(-20% -5% -20% 0); } }
-  @keyframes hf-spin-in { from { opacity: 0; rotate: -60deg; } to { opacity: 1; rotate: 12deg; } }
-  @keyframes hf-fade { from { opacity: 0; } to { opacity: 1; } }
-}
-
+  
 @media (max-width: 760px) {
   .hf .hero-fan.hf-photo { width: 92vw; height: 330px; }
   .hf-name { font-size: 15.5vw; }
   .hf-hey { font-size: 15vw; translate: -30% -38%; }
   .hf-creates { font-size: 17vw; translate: 34% 66%; }
   .hf-badge { width: 92px; right: 0; top: 0; }
-  .hf-stage { padding-bottom: 72px; }
-  .hf-note { position: relative; left: auto; top: auto; margin: 64px auto 8px; max-width: 250px; grid-area: 2 / 1; }
-}
-
+  .hf-stage { padding-bottom: 58px; }
+  
 /* Hand-written kicker above section headings */
 .kicker {
   margin: 0 0 -0.32em;
@@ -407,9 +375,9 @@ main { overflow-x: clip; }
   left: -6px;
   z-index: 2;
   margin: 0;
-  font-family: var(--hand);
-  font-weight: 700;
-  font-size: 1.45rem;
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: 2.3rem;
   color: var(--berry-soft);
   rotate: -8deg;
 }
@@ -437,7 +405,7 @@ main { overflow-x: clip; }
   overflow: visible;
   pointer-events: none;
 }
-.about-arc text { font-family: var(--hand); font-weight: 700; font-size: 25px; fill: var(--berry-soft); letter-spacing: 0.5px; }
+.about-arc text { font-family: var(--body); font-weight: 600; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; fill: var(--berry-soft); }
 
 @media (max-width: 760px) {
   .doodle-note { display: none; }
