@@ -22,6 +22,8 @@
     matchMedia("(prefers-reduced-motion: reduce)").matches || navigator.connection?.saveData;
 
   const fmt = (n) => (n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n));
+  // Only ever link out to https Instagram/TikTok pages
+  const safeUrl = (u) => (/^https:\/\/(www\.)?(instagram|tiktok)\.com\//.test(String(u)) ? u : "#");
   const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
   // Silent loops play only while on screen, to save data and battery
@@ -71,7 +73,7 @@
         <p>My latest on Instagram and TikTok.</p>
       </div>
       <ul class="reels">${chosen.map((x) => `
-        <li><a class="reel" href="${esc(x.url)}" data-track="fresh-${esc(x.platform)}">
+        <li><a class="reel" href="${esc(safeUrl(x.url))}" data-track="fresh-${esc(x.platform)}">
           <img src="${esc(x.image)}" alt="${esc(x.caption || "Latest post")}" loading="lazy">
           <span class="reel-brand">${x.platform === "tiktok" ? "TikTok" : "Instagram"}</span>
           ${x.stats?.views ? `<span class="reel-what">${fmt(x.stats.views)} views</span>` : ""}

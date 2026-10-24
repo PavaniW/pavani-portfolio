@@ -5,10 +5,28 @@
 // Optional: ENQUIRY_FROM – a sender on your own verified domain, once you have one.
 
 const LIMITS = { name: 100, brand: 100, email: 200, type: 60, timeline: 60, message: 3000 };
+// Only the options offered in the form's dropdowns are accepted
+const TYPES = ["Reels or TikToks", "Product photos", "Instagram stories", "Gifted collaboration",
+  "Event or visit", "Long-term partnership", "Something else"];
+const TIMELINES = ["", "As soon as possible", "Within a month", "In 1 to 3 months", "Later"];
+
+// Best-effort flood guard: max 5 enquiries per visitor per 10 minutes on a warm
+// instance. (For a hard limit, add a Vercel Firewall rate-limit rule on /api/enquiry.)
+const recent = new Map();
+function tooMany(ip) {
+  const now = Date.now();
+  const hits = (recent.get(ip) || []).filter((t) => now - t < 10 * 60 * 1000);
+  hits.push(now);
+  recent.set(ip, hits);
+  return hits.length > 5;
+}
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 
-function clean(value, max) {
-  return String(value ?? "").replace(/\r/g, "").trim().slice(0, max);
+function clean(value, max, multiline = false) {
+  let text = String(value ?? "").replace(/\r/g, "");
+  // Strip control characters; only the message may keep line breaks
+  text = text.replace(multiline ? /[\u0000-\u0009\u000b-\u001f\u007f]/g : /[\u0000-\u001f\u007f]/g, " ");
+  return text.trim().slice(0, max);
 }
 
 function escapeHtml(text) {
@@ -34,6 +52,9 @@ module.exports = async function handler(req, res) {
     return reply(req, res, 405, { error: "Method not allowed" });
   }
 
+  const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
+  if (tooMany(ip)) return reply(req, res, 429, { error: "Too many enquiries, try again later" });
+
   const body = typeof req.body === "object" && req.body ? req.body : {};
 
   // Spam trap: real visitors never see or fill the "website" field.
@@ -41,9 +62,10 @@ module.exports = async function handler(req, res) {
   if (clean(body.website, 200)) return reply(req, res, 200, { ok: true });
 
   const data = {};
-  for (const [key, max] of Object.entries(LIMITS)) data[key] = clean(body[key], max);
+  for (const [key, max] of Object.entries(LIMITS)) data[key] = clean(body[key], max, key === "message");
 
-  if (!data.name || !data.brand || !data.type || !data.message || !EMAIL_RE.test(data.email)) {
+  if (!data.name || !data.brand || !data.message || !EMAIL_RE.test(data.email)
+      || !TYPES.includes(data.type) || !TIMELINES.includes(data.timeline)) {
     return reply(req, res, 400, { error: "Missing or invalid fields" });
   }
 
