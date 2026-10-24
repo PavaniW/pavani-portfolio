@@ -355,11 +355,11 @@ main { overflow-x: clip; }
   /* Phones: name sits mostly below the photos, just kissing their bottom edge */
   .hf-name { translate: 0 2.15em; }
   .hf-creates { translate: 38% 128%; }
-  .hf-stage { padding-bottom: 104px; }
+  .hf-stage { padding-top: 64px; padding-bottom: 104px; }
   .hf-name { font-size: 15.5vw; }
   .hf-hey { font-size: 15vw; translate: -30% -38%; }
   .hf-creates { font-size: 17vw; }
-  .hf-badge { width: 92px; right: 0; top: 0; }
+  .hf-badge { width: 76px; right: -6px; top: -12px; }
 }
 
 /* Hand-written kicker above section headings */

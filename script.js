@@ -1,3 +1,12 @@
+// Refreshing the page always starts at the top (browsers otherwise jump back
+// to where you were, or to a #section left in the address bar).
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+const navEntry = performance.getEntriesByType("navigation")[0];
+if (navEntry && navEntry.type === "reload") {
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  window.scrollTo(0, 0);
+}
+
 // Copy email button
 const copyButton = document.querySelector("[data-copy]");
 const copyStatus = document.querySelector(".copy-status");
