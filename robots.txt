@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /brand/
+Disallow: /scripts/
+
+Sitemap: https://pavaniw-portfolio.vercel.app/sitemap.xml
