@@ -51,14 +51,15 @@
       const el = e.target;
       const to = parseFloat(el.dataset.to || "0");
       const suffix = el.dataset.suffix || "";
+      const prefix = el.dataset.prefix || "";
       const decimals = (el.dataset.to || "").includes(".") ? 1 : 0;
       const dur = 1100, start = performance.now();
       const step = (now) => {
         const p = Math.min((now - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = (to * eased).toFixed(decimals) + suffix;
+        el.textContent = prefix + (to * eased).toFixed(decimals) + suffix;
         if (p < 1) requestAnimationFrame(step);
-        else el.textContent = to.toFixed(decimals) + suffix;
+        else el.textContent = prefix + to.toFixed(decimals) + suffix;
       };
       requestAnimationFrame(step);
       cio.unobserve(el);
