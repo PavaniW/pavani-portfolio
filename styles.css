@@ -382,8 +382,8 @@ main { overflow-x: clip; }
   z-index: 2;
   margin: 0;
   font-family: "Fuzzy Bubbles", var(--body);
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-weight: 400;
+  font-size: 1.2rem;
   color: var(--berry-soft);
   rotate: -8deg;
 }
@@ -411,7 +411,7 @@ main { overflow-x: clip; }
   overflow: visible;
   pointer-events: none;
 }
-.about-arc text { font-family: "Fuzzy Bubbles", var(--body); font-weight: 700; font-size: 21px; letter-spacing: 0; fill: var(--berry-soft); }
+.about-arc text { font-family: "Fuzzy Bubbles", var(--body); font-weight: 400; font-size: 17px; letter-spacing: 0.5px; fill: var(--berry-soft); }
 
 @media (max-width: 760px) {
   .doodle-note { display: none; }
