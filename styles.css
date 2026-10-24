@@ -350,16 +350,16 @@ main { overflow-x: clip; }
   @keyframes hf-fade { from { opacity: 0; } to { opacity: 1; } }
 }
 
-@media (max-width: 760px) {
-  .hf .hero-fan.hf-photo { width: 84vw; height: 270px; }
-  /* Phones: same layering as desktop, name across the lower photos */
-  .hf-name { translate: 0 1.75em; }
-  .hf-creates { translate: 38% 120%; }
-  .hf-stage { padding-top: 76px; padding-bottom: 100px; }
-  .hf-name { font-size: 15.5vw; }
+/* Phones and small tablets: one layout that scales with the screen width,
+   so every phone from a small iPhone SE to a Pro Max (and Android) matches */
+@media (max-width: 900px) {
+  .hf .hero-fan.hf-photo { width: 84vw; height: 68.7vw; }
+  .hf .fan { width: 40%; }
+  .hf-name { font-size: 15.5vw; translate: 0 1.75em; }
   .hf-hey { font-size: 14vw; translate: -32% -66%; }
-  .hf-creates { font-size: 17vw; }
-  .hf-badge { width: 70px; right: -6px; top: -4px; }
+  .hf-creates { font-size: 17vw; translate: 38% 120%; }
+  .hf-stage { padding-top: 19.3vw; padding-bottom: 25.4vw; }
+  .hf-badge { width: 17.8vw; right: -1.5vw; top: -1vw; }
 }
 
 /* Hand-written kicker above section headings */
@@ -1108,8 +1108,9 @@ video.reel-media, .reel video {
 .footer-top > * { text-align: center; }
 
 /* Tablets: smaller badge tucked into the corner so it clears the photos */
-@media (min-width: 761px) and (max-width: 1100px) {
-  .hf-badge { width: 100px; right: -8px; top: -24px; }
+@media (min-width: 901px) and (max-width: 1100px) {
+  .hf-stage { padding-top: 96px; }
+  .hf-badge { width: 100px; right: -8px; top: 0; }
 }
 
 /* Phones: the @handle fills the width so the text under it isn't squeezed,
