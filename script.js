@@ -139,7 +139,7 @@ enquiry?.addEventListener("submit", async (event) => {
     showSent();
     if (typeof window.gtag === "function") window.gtag("event", "enquiry_sent");
   } catch {
-    enquiryStatus.textContent = "Couldn't send right now. Please email me at pavanishadi25@gmail.com instead.";
+    enquiryStatus.textContent = "Couldn't send right now. Please DM me on Instagram @pavaniii.w instead.";
     enquiryStatus.classList.add("is-error");
   } finally {
     submit.disabled = false;
@@ -189,3 +189,17 @@ window.addEventListener("resize", updateActiveNav);
 window.addEventListener("load", updateActiveNav);
 document.fonts?.ready.then(updateActiveNav);
 updateActiveNav();
+
+// "Ask for my rate card": fill in the enquiry form instead of opening email
+document.querySelectorAll("[data-ratecard]").forEach((el) => {
+  el.addEventListener("click", (event) => {
+    event.preventDefault();
+    const form = document.querySelector(".enquiry");
+    if (!form) return;
+    if (form.classList.contains("is-sent")) document.querySelector(".enquiry-again")?.click();
+    const message = form.querySelector("textarea[name='message']");
+    if (!message.value.trim()) message.value = "Hi Pavani, could you send me your rate card? We're interested in: ";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+    form.querySelector("input[name='name']").focus({ preventScroll: true });
+  });
+});
