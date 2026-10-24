@@ -4,4 +4,4 @@ Disallow: /api/
 Disallow: /brand/
 Disallow: /scripts/
 
-Sitemap: https://pavaniw-portfolio.vercel.app/sitemap.xml
+Sitemap: https://pavaniiiw-creates.vercel.app/sitemap.xml
