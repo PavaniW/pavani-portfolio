@@ -4,7 +4,6 @@
   --berry: #4a0e2b;
   --berry-soft: #7a3a58;
   --lipstick: #c8163b;
-  --butter: #ffe8a3;
   --milk: #fffafb;
 
   --display: "Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif;
@@ -33,7 +32,7 @@ body {
 
 img { display: block; max-width: 100%; }
 
-a { color: inherit; }
+a { color: inherit; text-decoration: none; }
 
 :focus-visible {
   outline: 3px solid var(--lipstick);
@@ -44,6 +43,7 @@ a { color: inherit; }
 h1, h2, h3 { margin: 0; font-weight: 400; }
 
 h2 {
+  text-wrap: balance;
   font-family: var(--display);
   font-size: clamp(2.25rem, 5vw, 3.5rem);
   line-height: 1;
@@ -66,6 +66,15 @@ h3 {
 }
 .skip:focus { left: 8px; }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* Nav */
 
 .nav {
@@ -75,34 +84,54 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px var(--gutter);
-  background: color-mix(in srgb, var(--petal) 88%, transparent);
+  /* Line the logo and button up with the centred content column */
+  padding: 14px max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter)));
+  background: color-mix(in srgb, var(--petal) 95%, transparent);
   backdrop-filter: blur(10px);
+  /* Always-on soft shadow so the top bar reads as separate from the page */
+  box-shadow: 0 10px 30px -22px rgb(74 14 43 / 0.7);
 }
 
 .nav-name {
+  padding: 10px 0;
+  margin: -10px 0; /* bigger tap area, same layout */
   font-family: var(--display);
   font-size: 1.5rem;
   text-decoration: none;
   line-height: 1;
 }
 
-.nav nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 28px); }
+.nav nav { display: flex; align-items: center; gap: clamp(4px, 1.2vw, 12px); }
 
 .nav nav a {
   text-decoration: none;
   font-weight: 500;
   font-size: 0.975rem;
 }
-.nav nav a:not(.nav-cta):hover { text-decoration: underline; text-underline-offset: 4px; }
+.nav nav a:not(.nav-cta) {
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+/* The section you're currently looking at (set in script.js) */
+/* Same pink pill on hover as for the section you're currently in */
+.nav nav a.is-active:not(.nav-cta),
+.nav nav a:not(.nav-cta):hover { background: var(--blush); }
+.nav-cta.is-active { box-shadow: 0 0 0 4px var(--blush); }
 
 .nav-cta {
   background: var(--berry);
   color: var(--milk);
-  padding: 8px 16px;
+  border: 2px solid var(--berry);
+  padding: 6px 16px;
   border-radius: 999px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
-.nav-cta:hover { background: var(--lipstick); }
+/* Filled; hover adds a soft blush glow ring and a small lift */
+.nav-cta:hover {
+  box-shadow: 0 0 0 4px var(--blush);
+  transform: translateY(-1px);
+}
 
 /* Hero */
 
@@ -121,20 +150,31 @@ main { overflow-x: clip; }
 
 .hero-name {
   font-family: var(--display);
-  font-size: clamp(5.5rem, 13vw, 11rem);
+  font-size: clamp(2.6rem, 7.4vw, 6.4rem);
+  white-space: nowrap;
   line-height: 0.85;
-  padding-bottom: 0.3em;
+  padding-bottom: 0.5em;
   letter-spacing: -0.02em;
   color: var(--berry);
   text-shadow: 0.035em 0.045em 0 var(--blush);
   margin-left: -0.04em;
 }
 
+/* The text block is exactly as wide as the big @handle, so the line
+   below it wraps to the same edges */
+.hero-text { width: min-content; max-width: 100%; }
+
 .hero-line {
-  max-width: 30ch;
+  text-wrap: pretty;
   font-size: clamp(1.125rem, 1.8vw, 1.375rem);
   line-height: 1.45;
-  margin: 0 0 32px;
+  margin: 0 0 40px;
+}
+
+/* Desktop: line the text block up with the middle photo, top to bottom */
+@media (min-width: 761px) {
+  .hero-line { margin-bottom: 56px; }
+  .hero-text { margin-top: -30px; }
 }
 
 .hero-actions {
@@ -144,25 +184,36 @@ main { overflow-x: clip; }
   gap: 20px;
 }
 
+/* Buttons everywhere: an outline that fills in on hover. Same colour family,
+   never a colour change. */
 .btn {
   display: inline-block;
-  background: var(--lipstick);
-  color: var(--milk);
+  background: transparent;
+  color: var(--berry);
+  border: 2px solid var(--berry);
   text-decoration: none;
   font-weight: 600;
   font-size: 1.0625rem;
-  padding: 15px 28px;
+  line-height: 1.4;
+  padding: 13px 28px;
   border-radius: 999px;
-  box-shadow: 0 4px 0 var(--berry);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-.btn:hover { transform: translateY(2px); box-shadow: 0 2px 0 var(--berry); }
-.btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--berry); }
+.btn:hover { background: var(--berry); color: var(--milk); }
+.btn:active { transform: translateY(1px); }
 
-.handle {
-  font-weight: 500;
-  text-underline-offset: 4px;
+.hero-socials { display: flex; gap: 12px; }
+.hero-socials a {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--berry);
+  border: 2px solid var(--berry);
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
 }
+.hero-socials a:hover { background: var(--berry); color: var(--milk); }
 
 .hero-fan {
   position: relative;
@@ -173,7 +224,7 @@ main { overflow-x: clip; }
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 52%;
+  width: 41%;
   aspect-ratio: 9 / 16;
   object-fit: cover;
   border-radius: 22px;
@@ -181,14 +232,14 @@ main { overflow-x: clip; }
   box-shadow: 0 18px 40px -18px rgb(74 14 43 / 0.45);
   transform-origin: 50% 110%;
 }
-.fan-1 { transform: translate(-50%, -50%) translateX(-44%) rotate(-12deg); }
-.fan-2 { transform: translate(-50%, -50%) translateX(44%) rotate(12deg); }
+.fan-1 { transform: translate(-50%, -50%) translateX(-34%) rotate(-12deg); }
+.fan-2 { transform: translate(-50%, -50%) translateX(34%) rotate(12deg); }
 .fan-3 { transform: translate(-50%, -50%) translateY(-3%); z-index: 2; }
 
 @media (prefers-reduced-motion: no-preference) {
   .fan { animation: fan-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .fan-1 { --to: translate(-50%, -50%) translateX(-44%) rotate(-12deg); animation-delay: 0.15s; }
-  .fan-2 { --to: translate(-50%, -50%) translateX(44%) rotate(12deg); animation-delay: 0.15s; }
+  .fan-1 { --to: translate(-50%, -50%) translateX(-34%) rotate(-12deg); animation-delay: 0.15s; }
+  .fan-2 { --to: translate(-50%, -50%) translateX(34%) rotate(12deg); animation-delay: 0.15s; }
   .fan-3 { --to: translate(-50%, -50%) translateY(-3%); }
 
   @keyframes fan-in {
@@ -233,7 +284,6 @@ main { overflow-x: clip; }
   text-decoration: none;
   color: var(--milk);
 }
-.brand-list a:hover { color: var(--butter); }
 
 .brand-list span { font-size: 0.95rem; color: var(--blush); }
 
@@ -282,7 +332,7 @@ main { overflow-x: clip; }
 .reel-brand {
   display: inline-block;
   margin-top: 12px;
-  background: var(--butter);
+  background: var(--blush);
   font-weight: 600;
   font-size: 0.875rem;
   padding: 2px 10px;
@@ -320,6 +370,7 @@ main { overflow-x: clip; }
 .about-text { max-width: 60ch; }
 .about-text h2 { margin-bottom: 24px; }
 .about-text p { margin: 0 0 16px; }
+.inline-link { color: var(--berry); font-weight: 700; text-decoration: none; }
 
 .stats {
   display: flex;
@@ -336,7 +387,6 @@ main { overflow-x: clip; }
   line-height: 1.1;
 }
 .stats dd a { text-decoration: none; }
-.stats dd a:hover { color: var(--lipstick); }
 
 .makes {
   list-style: none;
@@ -365,6 +415,37 @@ main { overflow-x: clip; }
   gap: clamp(24px, 6vw, 80px);
   align-items: start;
 }
+
+/* Sits vertically centred against the questions list (desktop) */
+.faq-side { align-self: center; }
+
+.faq-intro {
+  max-width: 32ch;
+  text-wrap: balance;
+  margin: 32px 0 28px;
+  font-size: 1.125rem;
+  color: var(--berry-soft);
+}
+
+.faq-ask {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.faq-ask strong { font-weight: 700; }
+.faq-ask-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--berry);
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.faq-ask:hover .faq-ask-icon { background: var(--berry); color: var(--milk); border-color: var(--berry); }
 
 .faq-list { max-width: 60ch; border-top: 2px solid var(--blush); }
 
@@ -397,93 +478,231 @@ main { overflow-x: clip; }
   line-height: 1;
   transition: transform 0.2s ease, background 0.2s ease;
 }
-.faq details[open] summary::after { transform: rotate(45deg); background: var(--butter); }
-.faq summary:hover { color: var(--lipstick); }
+.faq details[open] summary::after { transform: rotate(45deg); background: var(--berry); color: var(--milk); }
+.faq summary:hover::after { background: var(--berry); color: var(--milk); }
 
 .faq details p { margin: 0 0 20px; max-width: 54ch; }
-.faq details a { color: var(--lipstick); font-weight: 600; text-underline-offset: 3px; }
+.faq details a { color: var(--berry); font-weight: 700; text-decoration: none; }
 
 /* Contact */
 
 .contact {
   background: var(--lipstick);
   color: var(--milk);
-  text-align: center;
   padding: clamp(72px, 11vw, 136px) var(--gutter);
 }
 
-.contact h2 { font-size: clamp(2.75rem, 8vw, 5.5rem); }
+.contact-inner {
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
 
-.contact > p {
-  max-width: 44ch;
-  margin: 20px auto 36px;
+.contact h2 { font-size: clamp(2.75rem, 5vw, 4.25rem); padding-bottom: 0.08em; }
+
+.contact-info > p:not(.copy-status) {
+  max-width: 36ch;
+  text-wrap: balance;
+  margin: 32px 0 28px;
   font-size: 1.125rem;
 }
 
 .contact-email {
   display: inline-block;
+  padding: 8px 0;
+  margin: -8px 0; /* bigger tap area, same layout */
   font-family: var(--display);
-  font-size: clamp(1.4rem, 5.2vw, 3.25rem);
+  font-size: clamp(1.3rem, 2.6vw, 2.1rem);
   line-height: 1.1;
   color: var(--milk);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 8px;
+  text-decoration: none;
   overflow-wrap: anywhere;
 }
-.contact-email:hover { color: var(--butter); }
 
 .contact-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 14px 20px;
-  margin-top: 36px;
+  margin-top: 28px;
 }
 
 .btn-light {
-  background: var(--milk);
-  color: var(--berry);
+  color: var(--milk);
+  border-color: var(--milk);
 }
-.btn-light:hover { background: var(--butter); }
-
-.contact-note {
-  max-width: 44ch;
-  margin: 20px auto 0;
-  font-size: 0.975rem;
-}
+.btn-light:hover { background: var(--milk); color: var(--berry); }
 
 .copy {
-  display: block;
-  margin: 0;
-  font: inherit;
-  font-weight: 600;
-  font-size: 0.975rem;
-  color: var(--milk);
-  background: transparent;
-  border: 2px solid var(--milk);
-  border-radius: 999px;
-  padding: 10px 22px;
+  font-family: inherit;
   cursor: pointer;
 }
-.copy:hover { background: var(--milk); color: var(--berry); }
-.copy:focus-visible { outline-color: var(--butter); }
+.copy:focus-visible { outline-color: var(--milk); }
 
-.copy-status { min-height: 1.5em; margin: 12px 0 0; font-size: 0.95rem; }
+.contact-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 28px;
+}
+.contact-socials p { margin: 0; font-size: 0.975rem; }
+.contact-socials a {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--milk);
+  border: 2px solid var(--milk);
+  border-radius: 50%;
+}
+.contact-socials a:hover { background: var(--milk); color: var(--berry); }
+.contact-socials a:focus-visible { outline-color: var(--milk); }
+
+.copy-status { margin: 12px 0 0; font-size: 0.95rem; }
+.copy-status:empty { display: none; }
+
+/* Enquiry form */
+
+.enquiry {
+  background: var(--milk);
+  color: var(--berry);
+  border-radius: 28px;
+  padding: clamp(24px, 3.5vw, 40px);
+  display: grid;
+  gap: 18px;
+  box-shadow: 0 6px 0 var(--berry);
+}
+
+.enquiry-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.field { display: grid; gap: 6px; }
+.field > span { font-weight: 600; font-size: 0.95rem; }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--berry);
+  background: var(--petal);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.field textarea { resize: vertical; min-height: 120px; }
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%234a0e2b' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+.field ::placeholder { color: var(--berry-soft); opacity: 0.7; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--berry);
+  background-color: var(--milk);
+}
+.field [aria-invalid="true"] { border-color: var(--lipstick); }
+
+.enquiry-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.enquiry-submit {
+  justify-self: start;
+  cursor: pointer;
+  font-family: inherit;
+}
+.enquiry-submit[disabled] { opacity: 0.6; cursor: wait; }
+
+.enquiry-status { margin: 0; font-weight: 500; }
+.enquiry-status:empty { display: none; }
+.enquiry-status.is-error { color: var(--lipstick); }
 
 /* Footer */
 
 .footer {
+  background: var(--berry);
+  color: var(--milk);
+  padding: clamp(56px, 7vw, 80px) var(--gutter) 28px;
+}
+
+.footer-top,
+.footer-bottom {
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+  border-bottom: 1.5px solid rgb(255 250 251 / 0.18);
+}
+
+.footer-name {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1;
+  color: var(--milk);
+  text-decoration: none;
+}
+.footer-brand p { max-width: 30ch; margin: 14px 0 0; color: var(--blush); }
+
+.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.footer-label { margin: 0 0 4px; font-size: 0.95rem; color: var(--blush); }
+.footer-col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--milk);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.footer-bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px 24px;
-  padding: 28px var(--gutter);
+  padding-top: 24px;
   font-size: 0.95rem;
+  color: var(--blush);
 }
-.footer p { margin: 0; }
-.footer a { margin-left: 20px; text-underline-offset: 4px; }
-.footer a:first-child { margin-left: 0; }
+.footer-bottom p { margin: 0; }
+.footer-bottom a { color: var(--blush); text-decoration: none; }
+.footer :focus-visible { outline-color: var(--milk); }
+
+@media (max-width: 760px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
 
 /* ---- Motion & interactions (progressive enhancement) ---- */
 
@@ -504,14 +723,27 @@ main { overflow-x: clip; }
   }
 }
 
-/* Nav shadow once scrolled */
-.nav.scrolled {
-  background: color-mix(in srgb, var(--petal) 95%, transparent);
-  box-shadow: 0 10px 30px -22px rgb(74 14 43 / 0.7);
-}
 
-/* Hero photo cluster follows the pointer (set in interactions.js) */
-.hero-fan { transition: transform 0.3s ease; }
+/* Hero photos: on hover the fan opens a little and the photo under the
+   pointer lifts. Uses translate/rotate/scale (not transform) so it stacks on
+   top of the fan-in animation instead of fighting it. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .fan {
+    transition: translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                rotate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                scale 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.45s ease;
+  }
+  .hero-fan:hover .fan-1 { translate: -6px 2px; rotate: -1.5deg; }
+  .hero-fan:hover .fan-2 { translate: 6px 2px; rotate: 1.5deg; }
+  .hero-fan:hover .fan-3 { translate: 0 -4px; }
+  .hero-fan .fan-1:hover { translate: -6px -10px; }
+  .hero-fan .fan-2:hover { translate: 6px -10px; }
+  .hero-fan .fan-3:hover { translate: 0 -12px; }
+  .hero-fan .fan:hover {
+    box-shadow: 0 28px 50px -20px rgb(74 14 43 / 0.55);
+  }
+}
 
 /* Reel hover: a "watch" badge in the corner (signals it's a video link) */
 .reel::after {
@@ -539,18 +771,71 @@ main { overflow-x: clip; }
 /* Responsive */
 
 @media (max-width: 900px) {
+  .contact-inner { grid-template-columns: 1fr; }
   .reels { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; }
   .hero-fan { height: 400px; }
-  .fan { width: 42%; }
+  .fan { width: min(42%, 200px); }
   .about, .faq { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .faq-side { display: contents; }
+  .faq-intro { margin: 0; }
+  .faq-ask { order: 1; }
   .about-photo { max-width: 340px; }
 }
 
-@media (max-width: 420px) {
+/* Centre every section's headings, intros and buttons at every screen size.
+   FAQ rows, form fields and footer link lists stay left for easy scanning. */
+.brands-title, .brand-list li { text-align: center; }
+.brand-list { justify-content: center; }
+.section-head { flex-direction: column; align-items: center; text-align: center; }
+.reel { text-align: center; }
+.about-photo { margin-inline: auto; }
+.about-text { text-align: center; margin-inline: auto; }
+.stats, .makes { justify-content: center; }
+.stats div { align-items: center; }
+.faq-side h2, .faq-intro { text-align: center; }
+.faq-ask { justify-self: center; flex-direction: column; text-align: center; gap: 10px; }
+.contact-info { text-align: center; }
+.contact-info > p:not(.copy-status) { margin-inline: auto; }
+.contact-actions, .contact-socials { justify-content: center; }
+.enquiry-title { text-align: center; }
+.enquiry-submit { justify-self: center; }
+.footer-brand { text-align: center; }
+.footer-brand p { margin-inline: auto; }
+.footer-col { align-items: center; text-align: center; }
+/* Copyright on the left, "Back to top" on the right, at every size */
+.footer-bottom { justify-content: space-between; align-items: center; flex-wrap: nowrap; text-align: left; }
+.footer-bottom a { flex: none; }
+.hero-text { justify-self: center; text-align: center; }
+.hero-actions { justify-content: center; }
+.hero-line { margin-inline: auto; }
+.faq-side { text-align: center; }
+.faq-ask { justify-self: center; }
+.faq-side .faq-ask { display: flex; width: fit-content; margin-inline: auto; }
+.faq-intro { margin-inline: auto; }
+.footer-top > * { text-align: center; }
+
+/* Phones: the @handle fills the width so the text under it isn't squeezed,
+   and the two contact buttons fit side by side */
+@media (max-width: 760px) {
+  .hero-name { font-size: 15vw; }
+  .hero-text { width: auto; }
+  .hero-line { max-width: 36ch; }
+
+  .contact-actions { gap: 10px; }
+  /* All buttons share one size on phones */
+  .btn { padding: 11px 18px; font-size: 1rem; }
+}
+
+/* Phones: only the Contact button fits in the top bar */
+@media (max-width: 600px) {
   .nav nav a:not(.nav-cta) { display: none; }
+}
+
+@media (max-width: 420px) {
   .hero-fan { height: 340px; }
 }

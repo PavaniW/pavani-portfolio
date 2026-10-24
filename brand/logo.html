@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pavani logo sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Instrument+Sans:wght@500;600&display=block" rel="stylesheet">
+<style>
+  :root {
+    --petal: #f9dde3; --blush: #f3c3ce; --berry: #4a0e2b;
+    --berry-soft: #7a3a58; --lipstick: #c8163b; --milk: #fffafb;
+  }
+  body { margin: 0; background: #ddd; font-family: "Instrument Sans", sans-serif; }
+  .sheet { display: grid; gap: 24px; padding: 24px; justify-items: start; }
+
+  /* Horizontal lockup: flower + wordmark + handle */
+  .lockup {
+    display: inline-flex; align-items: center; gap: 22px;
+    padding: 48px 56px;
+  }
+  .mark { width: 96px; height: 96px; flex: none; }
+  .words { display: grid; gap: 6px; }
+  .word {
+    font-family: "Bagel Fat One", sans-serif;
+    font-size: 96px; line-height: 0.85; letter-spacing: -0.02em;
+    padding-bottom: 0.12em;
+  }
+  .handle { font-size: 26px; font-weight: 600; letter-spacing: 0.01em; padding-left: 4px; }
+
+  .on-petal { background: var(--petal); }
+  .on-petal .word { color: var(--berry); text-shadow: 0.035em 0.045em 0 var(--blush); }
+  .on-petal .handle { color: var(--berry-soft); }
+
+  .on-berry { background: var(--berry); }
+  .on-berry .word { color: var(--milk); text-shadow: 0.035em 0.045em 0 var(--lipstick); }
+  .on-berry .handle { color: var(--blush); }
+
+  .transparent { background: transparent; }
+  .transparent .word { color: var(--berry); text-shadow: 0.035em 0.045em 0 var(--blush); }
+  .transparent .handle { color: var(--berry-soft); }
+
+  /* Stacked lockup, centred */
+  .stacked { display: inline-grid; justify-items: center; gap: 14px; padding: 56px 64px; text-align: center; }
+  .stacked .mark { width: 88px; height: 88px; }
+  .stacked .handle { padding-left: 0; }
+
+  /* Square profile picture: flower on berry, handle underneath */
+  .avatar {
+    width: 1080px; height: 1080px; box-sizing: border-box;
+    background: var(--berry);
+    display: grid; place-items: center; align-content: center; gap: 28px;
+  }
+  .avatar .mark { width: 640px; height: 640px; }
+  .avatar .word { font-size: 170px; color: var(--milk); text-shadow: 0.035em 0.045em 0 var(--lipstick); }
+  .avatar .handle { font-size: 52px; color: var(--blush); padding: 0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- The flower from the site icon -->
+    <symbol id="flower" viewBox="0 0 100 100">
+      <g fill="#f3c3ce">
+        <circle cx="50" cy="28" r="18"/><circle cx="71" cy="43" r="18"/><circle cx="63" cy="68" r="18"/>
+        <circle cx="37" cy="68" r="18"/><circle cx="29" cy="43" r="18"/>
+      </g>
+      <circle cx="50" cy="51" r="15" fill="#c8163b"/>
+    </symbol>
+    <symbol id="flower-on-light" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="50" fill="#4a0e2b"/>
+      <g transform="translate(14 14) scale(0.72)">
+        <g fill="#f9dde3">
+          <circle cx="50" cy="28" r="18"/><circle cx="71" cy="43" r="18"/><circle cx="63" cy="68" r="18"/>
+          <circle cx="37" cy="68" r="18"/><circle cx="29" cy="43" r="18"/>
+        </g>
+        <circle cx="50" cy="51" r="15" fill="#c8163b"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sheet">
+  <div class="lockup on-petal" id="logo-light">
+    <svg class="mark"><use href="#flower-on-light"/></svg>
+    <div class="words"><span class="word">pavani</span><span class="handle">@pavaniii.w</span></div>
+  </div>
+
+  <div class="lockup on-berry" id="logo-dark">
+    <svg class="mark"><use href="#flower"/></svg>
+    <div class="words"><span class="word">pavani</span><span class="handle">@pavaniii.w</span></div>
+  </div>
+
+  <div class="lockup transparent" id="logo-transparent">
+    <svg class="mark"><use href="#flower-on-light"/></svg>
+    <div class="words"><span class="word">pavani</span><span class="handle">@pavaniii.w</span></div>
+  </div>
+
+  <div class="stacked on-petal" id="logo-stacked">
+    <svg class="mark"><use href="#flower-on-light"/></svg>
+    <span class="word">pavani</span><span class="handle">@pavaniii.w</span>
+  </div>
+
+  <div class="avatar" id="logo-avatar">
+    <svg class="mark"><use href="#flower"/></svg>
+  </div>
+
+  <div class="avatar" id="logo-avatar-name">
+    <span class="word">pavani</span><span class="handle">@pavaniii.w</span>
+  </div>
+</div>
+</body>
+</html>

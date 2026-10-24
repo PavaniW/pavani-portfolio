@@ -48,3 +48,92 @@ document.querySelectorAll('a[href^="http"]').forEach((a) => {
   a.target = "_blank";
   a.rel = "noopener noreferrer";
 });
+
+// Enquiry form: sends to /api/enquiry (a Vercel function that emails Pavani).
+const enquiry = document.querySelector(".enquiry");
+const enquiryStatus = enquiry?.querySelector(".enquiry-status");
+
+enquiry?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const submit = enquiry.querySelector(".enquiry-submit");
+
+  // Mark empty required fields and invalid emails
+  let firstInvalid = null;
+  enquiry.querySelectorAll("[required]").forEach((field) => {
+    const bad = !field.value.trim() || (field.type === "email" && !field.checkValidity());
+    field.setAttribute("aria-invalid", bad ? "true" : "false");
+    if (bad && !firstInvalid) firstInvalid = field;
+  });
+  if (firstInvalid) {
+    enquiryStatus.textContent = "Please fill in the highlighted fields.";
+    enquiryStatus.classList.add("is-error");
+    firstInvalid.focus();
+    return;
+  }
+
+  submit.disabled = true;
+  submit.textContent = "Sending…";
+  enquiryStatus.textContent = "";
+  enquiryStatus.classList.remove("is-error");
+
+  try {
+    const response = await fetch(enquiry.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(enquiry))),
+    });
+    if (!response.ok) throw new Error(String(response.status));
+    enquiry.reset();
+    enquiryStatus.textContent = "Thanks! Your enquiry is on its way. I'll reply by email.";
+    if (typeof window.gtag === "function") window.gtag("event", "enquiry_sent");
+  } catch {
+    enquiryStatus.textContent = "Couldn't send right now. Please email me at pavanishadi25@gmail.com instead.";
+    enquiryStatus.classList.add("is-error");
+  } finally {
+    submit.disabled = false;
+    submit.textContent = "Send enquiry";
+  }
+});
+
+enquiry?.addEventListener("input", (event) => {
+  if (event.target.getAttribute("aria-invalid") === "true" && event.target.value.trim()) {
+    event.target.setAttribute("aria-invalid", "false");
+  }
+});
+
+// Keep the footer year current
+document.querySelectorAll("[data-year]").forEach((el) => {
+  el.textContent = new Date().getFullYear();
+});
+
+// Highlight the top-bar link for the section currently on screen
+const navLinks = [...document.querySelectorAll('.nav nav a[href^="#"]')];
+const spySections = navLinks
+  .map((link) => document.querySelector(link.getAttribute("href")))
+  .filter(Boolean);
+
+function updateActiveNav() {
+  // offsetTop ignores the reveal animation's slide, so positions stay accurate
+  // A section counts as "current" once its top reaches just under the top bar
+  const line = window.scrollY + 140;
+  let current = null;
+  for (const section of spySections) {
+    if (section.offsetTop <= line) current = section;
+  }
+  // At the very bottom, the last section counts even if it's short
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+    current = spySections[spySections.length - 1];
+  }
+  navLinks.forEach((link) => {
+    const active = current && link.getAttribute("href") === "#" + current.id;
+    link.classList.toggle("is-active", Boolean(active));
+    if (active) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
+
+window.addEventListener("scroll", updateActiveNav, { passive: true });
+window.addEventListener("resize", updateActiveNav);
+window.addEventListener("load", updateActiveNav);
+document.fonts?.ready.then(updateActiveNav);
+updateActiveNav();

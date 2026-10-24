@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pavani logo ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Instrument+Sans:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+  :root {
+    --petal: #f9dde3; --blush: #f3c3ce; --berry: #4a0e2b;
+    --berry-soft: #7a3a58; --lipstick: #c8163b; --milk: #fffafb;
+  }
+  body { margin: 0; background: #e9e4e6; font-family: "Instrument Sans", sans-serif; color: var(--berry); }
+  .sheet { display: grid; grid-template-columns: repeat(2, 560px); gap: 24px; padding: 24px; }
+  .card { width: 560px; height: 380px; display: grid; place-items: center; position: relative; overflow: hidden; }
+  .label { position: absolute; left: 18px; bottom: 14px; font-size: 15px; font-weight: 600; opacity: 0.75; }
+  .bagel { font-family: "Bagel Fat One", sans-serif; line-height: 1; letter-spacing: -0.02em; }
+  .petal { background: var(--petal); }
+  .berry { background: var(--berry); color: var(--milk); }
+  .lip { background: var(--lipstick); color: var(--milk); }
+  .milk { background: var(--milk); }
+
+  /* 1. Heart dots: the three i's get hearts in three shades */
+  .hearts { font-size: 92px; color: var(--berry); text-shadow: 0.035em 0.045em 0 var(--blush); }
+  .dotless { position: relative; display: inline-block; }
+  .dotless::before {
+    content: ""; position: absolute; left: 50%; top: -0.02em; width: 0.24em; height: 0.24em;
+    transform: translateX(-50%);
+    background: var(--c) no-repeat center / contain;
+  }
+  .h1 { --c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21s-9-5.6-11-11C-.5 5.2 3 1 7 1c2.3 0 4 1.3 5 3 1-1.7 2.7-3 5-3 4 0 7.5 4.2 6 9-2 5.4-11 11-11 11z' fill='%23f3c3ce'/%3E%3C/svg%3E"); }
+  .h2 { --c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21s-9-5.6-11-11C-.5 5.2 3 1 7 1c2.3 0 4 1.3 5 3 1-1.7 2.7-3 5-3 4 0 7.5 4.2 6 9-2 5.4-11 11-11 11z' fill='%23c8163b'/%3E%3C/svg%3E"); }
+  .h3 { --c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21s-9-5.6-11-11C-.5 5.2 3 1 7 1c2.3 0 4 1.3 5 3 1-1.7 2.7-3 5-3 4 0 7.5 4.2 6 9-2 5.4-11 11-11 11z' fill='%234a0e2b'/%3E%3C/svg%3E"); }
+
+  /* 2. Sticker: thick white outline, slight tilt */
+  .sticker { font-size: 88px; color: var(--berry); transform: rotate(-6deg);
+    -webkit-text-stroke: 14px var(--milk); paint-order: stroke fill;
+    filter: drop-shadow(0 8px 0 rgb(74 14 43 / 0.25)); }
+
+  /* 3. Round stamp: handle around a circle, big p in the middle */
+  .stamp svg { width: 300px; height: 300px; }
+
+  /* 4. Stacked: pavaniii huge, .w in a lipstick bubble */
+  .stack { display: grid; justify-items: center; }
+  .stack .big { font-size: 104px; color: var(--milk); text-shadow: 0.035em 0.045em 0 var(--lipstick); }
+  .stack .tag { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .bubble { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--lipstick); color: var(--milk); font-size: 34px; }
+  .stack .at { font-size: 30px; font-weight: 600; color: var(--blush); }
+
+  /* 5. @ monogram: a bubbly @ with a p tucked inside */
+  .mono { position: relative; width: 230px; height: 230px; display: grid; place-items: center; border-radius: 50%; background: var(--berry); }
+  .mono .at-glyph { font-size: 210px; color: var(--blush); line-height: 0.8; margin-top: -8px; }
+  .mono-wrap { display: grid; justify-items: center; gap: 16px; }
+  .mono-wrap .name { font-size: 30px; font-weight: 700; color: var(--berry); }
+
+  /* 6. Lipstick swipe: handle on a swatch stroke */
+  .swipe { position: relative; padding: 22px 46px; }
+  .swipe::before { content: ""; position: absolute; inset: 6px 0; background: var(--lipstick); border-radius: 60px 18px 70px 14px; transform: rotate(-3deg); }
+  .swipe span { position: relative; font-size: 70px; color: var(--milk); }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="card petal" id="idea-1">
+    <div class="bagel hearts">@pavan<span class="dotless h1">ı</span><span class="dotless h2">ı</span><span class="dotless h3">ı</span>.w</div>
+    <span class="label">1 · Heart dots on the triple i</span>
+  </div>
+
+  <div class="card lip" id="idea-2">
+    <div class="bagel sticker">@pavaniii.w</div>
+    <span class="label">2 · Sticker</span>
+  </div>
+
+  <div class="card petal stamp" id="idea-3">
+    <svg viewBox="0 0 300 300">
+      <defs><path id="ring" d="M150,150 m-108,0 a108,108 0 1,1 216,0 a108,108 0 1,1 -216,0"/></defs>
+      <circle cx="150" cy="150" r="146" fill="#4a0e2b"/>
+      <circle cx="150" cy="150" r="78" fill="#f3c3ce"/>
+      <text font-family="Bagel Fat One" font-size="27" fill="#fffafb">
+        <textPath href="#ring" startOffset="0" textLength="672" lengthAdjust="spacing">@pavaniii.w ✿ @pavaniii.w ✿</textPath>
+      </text>
+      <text x="150" y="182" text-anchor="middle" font-family="Bagel Fat One" font-size="104" fill="#4a0e2b">p</text>
+    </svg>
+    <span class="label">3 · Round stamp</span>
+  </div>
+
+  <div class="card berry" id="idea-4">
+    <div class="stack">
+      <div class="bagel big">pavaniii</div>
+      <div class="tag"><span class="bubble bagel">.w</span><span class="at">@pavaniii.w</span></div>
+    </div>
+    <span class="label" style="color:#f3c3ce">4 · Stacked with .w bubble</span>
+  </div>
+
+  <div class="card milk" id="idea-5">
+    <div class="mono-wrap">
+      <div class="mono"><span class="bagel at-glyph">@</span></div>
+      <span class="name">pavaniii.w</span>
+    </div>
+    <span class="label">5 · Bubbly @ badge</span>
+  </div>
+
+  <div class="card petal" id="idea-6">
+    <div class="swipe"><span class="bagel">@pavaniii.w</span></div>
+    <span class="label">6 · Lipstick swipe</span>
+  </div>
+
+</div>
+</body>
+</html>
