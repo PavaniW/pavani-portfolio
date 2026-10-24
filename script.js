@@ -60,6 +60,23 @@ document.querySelectorAll('a[href^="http"]').forEach((a) => {
 
 // Enquiry form: sends straight to Web3Forms, which emails Pavani.
 const WEB3FORMS_KEY = "be06cfe0-b123-4e3b-932f-b97008893720";
+
+// After sending: swap the fields for a thank-you card and bring it into view
+function showSent() {
+  const form = document.querySelector(".enquiry");
+  const done = form.querySelector(".enquiry-done");
+  form.classList.add("is-sent");
+  done.hidden = false;
+  document.querySelector(".enquiry-status").textContent = "";
+  done.scrollIntoView({ behavior: "smooth", block: "center" });
+  done.querySelector(".enquiry-again").focus({ preventScroll: true });
+}
+document.querySelector(".enquiry-again")?.addEventListener("click", () => {
+  const form = document.querySelector(".enquiry");
+  form.classList.remove("is-sent");
+  form.querySelector(".enquiry-done").hidden = true;
+  form.querySelector("input[name='name']").focus();
+});
 const enquiry = document.querySelector(".enquiry");
 const enquiryStatus = enquiry?.querySelector(".enquiry-status");
 
@@ -91,7 +108,7 @@ enquiry?.addEventListener("submit", async (event) => {
   // Spam trap: real visitors never fill the hidden "website" field
   if (fields.website) {
     enquiry.reset();
-    enquiryStatus.textContent = "Thanks! Your enquiry is on its way. I'll reply by email.";
+    showSent();
     submit.disabled = false;
     submit.textContent = "Send enquiry";
     return;
@@ -119,7 +136,7 @@ enquiry?.addEventListener("submit", async (event) => {
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.success === false) throw new Error(result.message || String(response.status));
     enquiry.reset();
-    enquiryStatus.textContent = "Thanks! Your enquiry is on its way. I'll reply by email.";
+    showSent();
     if (typeof window.gtag === "function") window.gtag("event", "enquiry_sent");
   } catch {
     enquiryStatus.textContent = "Couldn't send right now. Please email me at pavanishadi25@gmail.com instead.";

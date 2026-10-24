@@ -1134,6 +1134,18 @@ video.reel-media, .reel video {
   .hero-fan { height: 340px; }
 }
 
+/* Enquiry sent: hide the fields, show the thank-you card */
+.enquiry.is-sent > :not(.enquiry-title):not(.enquiry-done) { display: none; }
+.enquiry-done { text-align: center; padding: 24px 0 8px; }
+.enquiry-done[hidden] { display: none; }
+.enquiry-done-title {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  line-height: 1;
+}
+.enquiry-done p:not(.enquiry-done-title) { margin: 0 auto 24px; max-width: 30ch; }
+
 /* ======================================================================
    Clean-girl pass: softer, airier palette. Overrides only, so this whole
    block can be removed to go back to the bolder version.

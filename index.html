@@ -367,6 +367,12 @@
           </label>
           <button class="btn enquiry-submit" type="submit" data-track="enquiry-submit">Send enquiry</button>
           <p class="enquiry-status" role="status" aria-live="polite"></p>
+          <!-- Shown in place of the fields once an enquiry is sent -->
+          <div class="enquiry-done" hidden>
+            <p class="enquiry-done-title">Thank you!</p>
+            <p>Your enquiry is on its way. I'll reply by email soon.</p>
+            <button type="button" class="btn enquiry-again">Send another</button>
+          </div>
         </form>
       </div>
     </section>
