@@ -1133,3 +1133,45 @@ video.reel-media, .reel video {
 @media (max-width: 420px) {
   .hero-fan { height: 340px; }
 }
+
+/* ======================================================================
+   Clean-girl pass: softer, airier palette. Overrides only, so this whole
+   block can be removed to go back to the bolder version.
+   ====================================================================== */
+:root {
+  --petal: #fbf0f2;      /* lighter, creamier page pink */
+  --blush: #f1d4db;      /* softer accent pink */
+  --cream: #fffaf8;      /* warm white for calm sections */
+}
+
+/* Brands: warm white strip with thin pink edges instead of dark plum */
+.brands {
+  background: var(--cream);
+  color: var(--berry);
+  border-block: 1px solid var(--blush);
+}
+.brands-title { color: var(--berry-soft); }
+.brand-list a { color: var(--berry); }
+.brand-list span { color: var(--berry-soft); }
+.brands :focus-visible { outline-color: var(--berry); }
+
+/* Contact: soft blush instead of bright red */
+.contact { background: var(--blush); color: var(--berry); }
+.contact-email { color: var(--berry); }
+.kicker-light { color: var(--berry-soft); }
+.btn-light { color: var(--berry); border-color: var(--berry); }
+.btn-light:hover { background: var(--berry); color: var(--milk); }
+.contact-socials a { color: var(--berry); border-color: var(--berry); }
+.contact-socials a:hover { background: var(--berry); color: var(--milk); }
+.copy:focus-visible,
+.contact-socials a:focus-visible { outline-color: var(--berry); }
+
+/* Softer shadows */
+.enquiry { box-shadow: 0 24px 60px -36px rgb(74 14 43 / 0.35); }
+.fan { box-shadow: 0 16px 40px -22px rgb(74 14 43 / 0.35); }
+.numbers-list div { box-shadow: 0 10px 30px -26px rgb(74 14 43 / 0.4); }
+
+/* More breathing room between sections */
+.work { padding-block: clamp(80px, 10vw, 136px); }
+.about,
+.faq { padding-bottom: clamp(80px, 10vw, 136px); }
