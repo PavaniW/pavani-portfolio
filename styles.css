@@ -1144,16 +1144,12 @@ video.reel-media, .reel video {
   --cream: #fffaf8;      /* warm white for calm sections */
 }
 
-/* Brands: warm white strip with thin pink edges instead of dark plum */
-.brands {
-  background: var(--cream);
-  color: var(--berry);
-  border-block: 1px solid var(--blush);
-}
-.brands-title { color: var(--berry-soft); }
-.brand-list a { color: var(--berry); }
-.brand-list span { color: var(--berry-soft); }
-.brands :focus-visible { outline-color: var(--berry); }
+/* Brands: plum strip, white brand names, muted pink labels */
+.brands { background: var(--berry); color: var(--milk); border-block: 0; }
+.brands-title { color: #d9a3b4; }
+.brand-list a { color: var(--milk); }
+.brand-list span { color: #d9a3b4; }
+.brands :focus-visible { outline-color: var(--milk); }
 
 /* Contact: soft blush instead of bright red */
 .contact { background: var(--blush); color: var(--berry); }
