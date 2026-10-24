@@ -262,6 +262,15 @@ main { overflow-x: clip; }
   color: var(--berry-soft);
   margin-bottom: 20px;
 }
+.numbers-platform {
+  margin: 24px 0 12px;
+  font-family: var(--body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--berry);
+}
+.numbers-platform:first-of-type { margin-top: 0; }
+.numbers-platform span { font-weight: 400; color: var(--berry-soft); }
 .numbers-list {
   margin: 0;
   display: grid;
@@ -286,6 +295,7 @@ main { overflow-x: clip; }
 }
 .numbers-list dt { color: var(--berry-soft); font-size: 0.95rem; }
 .numbers-note { margin: 20px auto 0; color: var(--berry-soft); }
+.numbers-updated { margin: 20px 0 0; font-size: 0.85rem; color: var(--berry-soft); opacity: 0.8; }
 @media (max-width: 760px) {
   .numbers-list { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
