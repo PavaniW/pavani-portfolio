@@ -1,1 +1,6 @@
 .DS_Store
+.tokens.out
+.env.local
+scripts/node_modules/
+assets/originals/
+brand/preview-choices/

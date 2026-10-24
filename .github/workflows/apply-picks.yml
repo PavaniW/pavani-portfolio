@@ -1,0 +1,36 @@
+name: Apply ticked picks
+
+# When Pavani ticks boxes in the weekly review, save them to data/picks.json on
+# the review branch. Vercel's preview link then shows exactly those picks.
+
+on:
+  pull_request:
+    types: [edited]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.event.pull_request.head.ref == 'social-update' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: social-update
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Read the tick boxes
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/picks.mjs apply
+
+      - name: Save picks
+        run: |
+          git config user.name "social-sync-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/picks.json
+          git diff --cached --quiet || (git commit -m "Update picks" && git push)

@@ -1,0 +1,64 @@
+name: Weekly Instagram + TikTok update
+
+# Every Monday: pull new posts + insights, then open a review (pull request)
+# with tick boxes. Nothing goes live until Pavani merges it.
+
+on:
+  schedule:
+    - cron: "30 0 * * 1"    # Mondays, 06:00 Sri Lanka time
+  workflow_dispatch:         # "Run workflow" button for an update right now
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install ffmpeg (makes the short silent video loops)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Pull latest posts and insights
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          TT_CLIENT_KEY: ${{ secrets.TT_CLIENT_KEY }}
+          TT_CLIENT_SECRET: ${{ secrets.TT_CLIENT_SECRET }}
+          TT_REFRESH_TOKEN: ${{ secrets.TT_REFRESH_TOKEN }}
+        run: node scripts/sync-social.mjs
+
+      # Tokens rotate; save the new ones so next week's run still works.
+      # Needs a fine-grained GitHub token with "Secrets: read and write" on
+      # this repo, stored as the SECRETS_PAT secret.
+      - name: Save rotated tokens
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: |
+          if [ ! -f .tokens.out ]; then exit 0; fi
+          if [ -z "$GH_TOKEN" ]; then echo "SECRETS_PAT not set, skipping"; rm .tokens.out; exit 0; fi
+          for key in $(jq -r 'keys[]' .tokens.out); do
+            jq -r --arg k "$key" '.[$k]' .tokens.out | gh secret set "$key" --repo "$GITHUB_REPOSITORY"
+          done
+          rm .tokens.out
+
+      - name: Write the review checklist
+        run: |
+          node scripts/picks.mjs body > /tmp/pr-body.md
+
+      - name: Open or update the weekly review
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: social-update
+          title: "Weekly Instagram + TikTok update"
+          commit-message: "Sync latest Instagram + TikTok"
+          body-path: /tmp/pr-body.md
+          add-paths: |
+            data/social.json
+            assets/feed
+          delete-branch: true

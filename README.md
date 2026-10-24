@@ -37,3 +37,33 @@ see which brand links get the most taps.
 **Privacy (built in):** respects the browser's Do Not Track; IP anonymisation on; and you can
 exclude your own visits — open the site once per device with `?mine` (e.g. `https://yoursite.com/?mine`)
 and that browser stops counting.
+
+## Weekly Instagram + TikTok update
+
+Every Monday, `.github/workflows/sync-social.yml` pulls new posts, short silent
+video loops and insights, then opens a pull request called
+**"Weekly Instagram + TikTok update"** with tick boxes. Tick what should appear
+on the site (posts and which stats), check the Vercel preview link, then
+**Merge**. Nothing goes live without that. Run it any time from
+GitHub > Actions > "Weekly Instagram + TikTok update" > Run workflow.
+
+Files: `scripts/sync-social.mjs` (fetch), `scripts/picks.mjs` (checklist),
+`data/social.json` (synced data), `data/picks.json` (what is shown),
+`feed.js` (renders it). With nothing connected, the site looks as before.
+
+### One-time setup
+
+1. GitHub repo > Settings > Actions > General > Workflow permissions:
+   choose **Read and write** and tick **Allow GitHub Actions to create and
+   approve pull requests**.
+2. **Instagram** (account must be Creator or Business):
+   developers.facebook.com > Create app > add **Instagram** >
+   "API setup with Instagram login" > add your account and generate a token.
+   Save it as repo secret `IG_TOKEN`.
+3. **TikTok**: developers.tiktok.com > create app > add **Login Kit** and
+   **Display API** (scopes `user.info.basic`, `user.info.stats`, `video.list`).
+   Sandbox mode is fine: add @pavaniii.w as a target user. Save `TT_CLIENT_KEY`,
+   `TT_CLIENT_SECRET` and a `TT_REFRESH_TOKEN` as repo secrets.
+4. Tokens rotate. To let the workflow save the new ones, create a fine-grained
+   GitHub token for this repo with **Secrets: Read and write** and save it as
+   `SECRETS_PAT`.

@@ -327,7 +327,25 @@ main { overflow-x: clip; }
   background: var(--blush);
   transition: transform 0.25s ease;
 }
-.reel:hover img { transform: rotate(-1.5deg) scale(1.02); }
+.reel video { transition: transform 0.25s ease; }
+.reel:hover img, .reel:hover video { transform: rotate(-1.5deg) scale(1.02); }
+
+/* Small TikTok badge on TikTok tiles (the pill stays for brand names) */
+.reel { position: relative; }
+.reel-platform {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--milk);
+  color: var(--berry);
+  box-shadow: 0 2px 8px rgb(74 14 43 / 0.25);
+}
 
 .reel-brand {
   display: inline-block;
@@ -341,11 +359,46 @@ main { overflow-x: clip; }
 
 .reel-what {
   display: block;
+  text-wrap: balance;
   margin-top: 6px;
   font-weight: 500;
   line-height: 1.35;
 }
-.reel img + .reel-what { margin-top: 12px; }
+.reel img + .reel-what, .reel video + .reel-what { margin-top: 12px; }
+
+/* Fresh from my feed (filled in by feed.js from the weekly sync) */
+.fresh {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter) clamp(64px, 9vw, 112px);
+}
+video.reel-media, .reel video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 18px;
+  background: var(--blush);
+}
+.fresh .reels {
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 260px));
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .fresh .reels { grid-template-columns: repeat(var(--n-phone, 2), minmax(0, 1fr)); }
+}
+.audience { margin: -24px 0 36px; color: var(--berry-soft); font-size: 0.975rem; }
+
+/* Work grid: a last row that isn't full sits in the middle */
+/* 4 per row on desktop (4 x 4 once 16 posts are in), 2 per row on phones.
+   A last row that isn't full sits in the middle. */
+.work .reels { display: flex; flex-wrap: wrap; justify-content: center; }
+.work .reels > li { flex: 0 0 calc((100% - 3 * clamp(14px, 2vw, 24px)) / 4); }
+.work .reel img, .work .reel video { aspect-ratio: 3 / 4; }
+@media (max-width: 760px) {
+  .work .reels > li { flex-basis: calc((100% - clamp(14px, 2vw, 24px)) / 2); }
+  .work .reel img, .work .reel video { aspect-ratio: 9 / 16; }
+}
 
 /* About */
 

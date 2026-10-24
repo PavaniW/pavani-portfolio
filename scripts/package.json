@@ -1,0 +1,9 @@
+{
+  "name": "pavani-portfolio-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Local tools for the portfolio (not part of the website build).",
+  "devDependencies": {
+    "playwright-core": "^1.48.0"
+  }
+}

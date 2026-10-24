@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pavani stamp logo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=block" rel="stylesheet">
+<style>
+  body { margin: 0; background: #e9e4e6; }
+  .sheet { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px; }
+  .tile { width: 420px; height: 420px; display: grid; place-items: center; }
+  .tile svg { width: 340px; height: 340px; }
+  .petal { background: #f9dde3; }
+  .berry { background: #4a0e2b; }
+  .clear { background: transparent; }
+  .profile { width: 1080px; height: 1080px; background: #4a0e2b; display: grid; place-items: center; }
+  .profile svg { width: 1000px; height: 1000px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- Text arcs: top reads left-to-right over the top, bottom reads left-to-right along the bottom -->
+    <path id="arc-top" d="M42,150 A108,108 0 0,1 258,150"/>
+    <path id="arc-bottom" d="M22,150 A128,128 0 0,0 278,150"/>
+
+    <!-- White flower; the centre matches the ring so it reads as a cut-out -->
+    <symbol id="flower" viewBox="0 0 100 100">
+      <g fill="#fffafb">
+        <circle cx="50" cy="28" r="18"/><circle cx="71" cy="43" r="18"/><circle cx="63" cy="68" r="18"/>
+        <circle cx="37" cy="68" r="18"/><circle cx="29" cy="43" r="18"/>
+      </g>
+      <circle cx="50" cy="51" r="14" fill="var(--centre, var(--ring, #4a0e2b))"/>
+    </symbol>
+
+    <!-- The stamp. --ring = ring colour, --disc = centre colour -->
+    <symbol id="stamp" viewBox="0 0 300 300">
+      <circle cx="150" cy="150" r="148" fill="var(--ring, #4a0e2b)"/>
+      <circle cx="150" cy="150" r="84" fill="var(--disc, #f3c3ce)"/>
+      <text font-family="Bagel Fat One" font-size="30" fill="#fffafb" text-anchor="middle" letter-spacing="1">
+        <textPath href="#arc-top" startOffset="50%">@pavaniii.w</textPath>
+      </text>
+      <text font-family="Bagel Fat One" font-size="30" fill="#fffafb" text-anchor="middle" letter-spacing="1">
+        <textPath href="#arc-bottom" startOffset="50%">@pavaniii.w</textPath>
+      </text>
+      <use href="#flower" x="12" y="133" width="34" height="34"/>
+      <use href="#flower" x="254" y="133" width="34" height="34"/>
+      <text x="150" y="172" text-anchor="middle" font-family="Bagel Fat One" font-size="64" fill="var(--ink, #4a0e2b)" letter-spacing="-1">p.w</text>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sheet">
+  <div class="tile petal" id="stamp-pink"><svg><use href="#stamp"/></svg></div>
+  <div class="tile berry" id="stamp-dark"><svg style="--ring:#c8163b"><use href="#stamp"/></svg></div>
+  <div class="tile clear" id="stamp-transparent"><svg><use href="#stamp"/></svg></div>
+  <div class="profile" id="stamp-profile"><svg style="--ring:#4a0e2b"><use href="#stamp"/></svg></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "_about": "Which original video (in assets/originals, not uploaded) becomes which moving tile, and where the 6-second loop starts. Run: node scripts/make-loops.mjs",
+  "DV2uKFjiJ8B": {
+    "file": "02929359b2f147489b6b844ca3fbb104.MP4",
+    "start": 8.2,
+    "note": "Cliara green tea clay mask",
+    "poster": "assets/work/clay-mask.jpg"
+  },
+  "DeEsYAKoczc": {
+    "file": "4554031bd5f14fd68ed6a5601bb0961b.MP4",
+    "start": 7.8,
+    "note": "Cliara hair wellness day",
+    "poster": "assets/work/hair-wellness.jpg"
+  },
+  "DW8hOgACO3j": {
+    "file": "4bcecfb2fd344c27bd46590f587c3b5c.MP4",
+    "start": 0.5,
+    "note": "OOTN"
+  },
+  "DdeVQoroN2o": {
+    "file": "383932db6474477380ea43c764352fe5.MP4",
+    "start": 6.8,
+    "note": "PerfumeClub decants, holding the bag",
+    "poster": "assets/work/decants.jpg"
+  },
+  "DbkJEkgI5B8": {
+    "file": "8df9f80cb51e4eafbbae95051c137cd1.MP4",
+    "start": 3.5,
+    "note": "Blush Me skincare"
+  },
+  "DcyeGidIqZI": {
+    "file": "c82d72b634064c59ba7a1acf8f46ee1d.MP4",
+    "start": 4,
+    "note": "Zomoto restaurant"
+  },
+  "tt-7695424481405259026": {
+    "file": "v1c044g50000dakk5hnog65hjcctmiog.MP4",
+    "start": 6.6,
+    "length": 5.2,
+    "poster": "assets/work/grad-makeover.jpg",
+    "note": "TikTok grad makeover"
+  },
+  "tt-grwm-event": {
+    "file": "v1c044g50000db5q1v7og65n7kn4qvag.MP4",
+    "start": 50.8,
+    "length": 5.5,
+    "poster": "assets/work/grwm-event.jpg",
+    "note": "TikTok GRWM for an event (link to come)"
+  }
+}
